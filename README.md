@@ -57,3 +57,17 @@ Movie object format:
 
 - See Part 3 above (Adding movies with a POST request)
 - Style the app!
+
+
+
+#PROJECT STEPS TAKEN
+<!-- Phase 1 - initial set up  -->
+#1. install dependencies
+yarn
+yarn start
+
+(separate terminal)
+cd into client folder
+yarn install
+yarn start
+
