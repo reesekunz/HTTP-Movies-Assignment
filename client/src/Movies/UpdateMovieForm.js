@@ -1,16 +1,22 @@
 import React from "react";
+import axios from "axios";
 
 class UpdateMovieForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      initialMovie: {
+        title: "",
+        director: "",
+        metascore: "",
+        stars: [],
+      }
     };
   }
 
   handleChange = event => {
     this.setState({
-      movies: {
+      initialMovie: {
         ...this.state.movies,
         [event.target.name]: event.target.value
       }

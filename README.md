@@ -91,6 +91,9 @@ movie.js
   <Link to={`/update-movie/${this.state.movie.id}`}>Update Movie</Link>
   </button>
 
+#4. - The form should make a PUT request to the server when submitted
+UpdatedMovieForm.js
+
 
 
 
