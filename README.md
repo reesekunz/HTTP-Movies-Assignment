@@ -71,3 +71,11 @@ cd into client folder
 yarn install
 yarn start
 
+<!-- Phase 2 - Updating Movie  -->
+#1. - Add a route at the path `/update-movie/:id`
+      <Route path="/update-movie/:id" component={UpdateMovieForm} />
+(still have to build out UpdateMovieForm component)
+
+#2. - Create a component with a form to update the chosen movie
+
+
