@@ -57,3 +57,43 @@ Movie object format:
 
 - See Part 3 above (Adding movies with a POST request)
 - Style the app!
+
+
+
+#PROJECT STEPS TAKEN
+<!-- Phase 1 - initial set up  -->
+#1. install dependencies
+yarn
+yarn start
+
+(separate terminal)
+cd into client folder
+yarn install
+yarn start
+
+<!-- Phase 2 - Updating Movie  -->
+#1. - Add a route at the path `/update-movie/:id`
+     <Route
+        path="/update-movie/:id"
+        render={props => {
+          return <UpdateMovieForm {...props}/>;
+        }}
+      />
+(still have to build out UpdateMovieForm component)
+
+#2. - Create a component with a form to update the chosen movie
+Built out form in UpdateMovieForm.js 
+
+#3. Add a button in the movie component that routes you to your new route with the movies's id as the URL param
+movie.js
+
+  <button className="update-button">
+  <Link to={`/update-movie/${this.state.movie.id}`}>Update Movie</Link>
+  </button>
+
+#4. - The form should make a PUT request to the server when submitted
+UpdatedMovieForm.js
+
+
+
+
