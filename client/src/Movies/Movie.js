@@ -47,20 +47,12 @@ export default class Movie extends React.Component {
           Save
         </div>
         {/* Update with movie id routing  */}
-        <Route
-          exact
-          path="/update-movie/:id"
-          render={props => <UpdateMovieForm {...props} movie={this.state.movie} />}
-        />
-        <NavLink exact to={`/update-movie/${this.state.movie.id}`}>
-          
-        </NavLink>
-        <button
-          onClick={() =>
-            this.props.history.push(`/update-movie${this.state.movie.id}`)
-          }
-          className="update-button"
-        />
+        <button className="update-button">
+        <NavLink to={{
+          pathname:`/update-movie/${this.state.movie.id}`,
+          state: this.state.movie
+        }}>Update</NavLink>
+        </button>
       </div>
     );
   }

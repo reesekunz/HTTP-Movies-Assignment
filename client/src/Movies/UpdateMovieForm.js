@@ -1,89 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from "react";
 
-const initialMovie = {
-    title: "",
-    director: "",
-    metascore: "",
-    stars: [],
-};
+class UpdateMovieForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialMovieState: {
+        title: "",
+        director: "",
+        metascore: "",
+        stars: []
+      }
+    };
+  }
 
-const UpdateMovieForm = props => {
-    const [updateMovie, setUpdateMovie] = useState(initialMovie);
-  
-    useEffect(() => {
-        setUpdateMovie(props.location.state)
-    }, [props.location.state])
+  handleChange = event => {
+    this.setState({
+      initialMovieState: {
+        ...this.state.initialMovieState,
+        [event.target.name]: event.target.value
+      }
+    });
+  };
 
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.handleSubmit(this.state.movies);
+  };
 
-    const handleChange = event => {
-        event.persist();
-        let value = event.target.value;
-        if (event.target.name === 'stars') {
-            value = value.split(',')
-        }
-
-        setUpdateMovie({
-            ...updateMovie,
-            [event.target.name]: value
-          });
-        };
-
-  
-        const handleSubmit = event => {
-            event.preventDefault();
-            axios
-            .put(`http://localhost:5000/api/movies${updateMovie.id}`, updateMovie)
-              .then(response => {
-                console.log(response);
-                setUpdateMovie(initialMovie);
-                props.updateMovies(response.data);
-                props.history.push('/');
-              })
-              .catch(error => console.log(error.response));
-          };
-        
-
-
+  render() {
     return (
       <div className="update-movie-form">
         <h2>Update Movie</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             name="title"
             placeholder="title"
-            onChange={handleChange}
-            value={updateMovie.title}
-
+            onChange={this.handleChange}
+            value={this.state.initialMovieState.title}
           />
           <input
             type="text"
             name="director"
             placeholder="director"
-            onChange={handleChange}
-            value={updateMovie.director}
+            onChange={this.handleChange}
+            value={this.state.initialMovieState.director}
           />
           <input
             type="text"
             name="metascore"
             placeholder="metascore"
-            onChange={handleChange}
-            value={updateMovie.metascore}
+            onChange={this.handleChange}
+            value={this.state.initialMovieState.metascore}
           />
           <input
             type="text"
             name="stars"
             placeholder="stars"
-            onChange={handleChange}
-            value={updateMovie.stars.toString()}
+            onChange={this.handleChange}
+            value={this.state.initialMovieState.star}
           />
-          <button className="update-button" type="submit">
+          {/* <button className="update-button" type="submit"> */}
+              <button>
             Submit Update
           </button>
         </form>
       </div>
     );
   }
-
+}
 export default UpdateMovieForm;
