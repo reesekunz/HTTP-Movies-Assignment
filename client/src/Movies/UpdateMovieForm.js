@@ -1,46 +1,67 @@
-import React from 'react';
+import React from "react";
 
 class UpdateMovieForm extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        movies: []
-      };
-    }
-  
-    handleChange = event => {
-        this.setState({
-          movies: {
-            ...this.state.movies,
-            [event.target.name]: event.target.value
-          }
-        });
-      };
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: []
+    };
+  }
 
-      handleSubmit = event => {
-        event.preventDefault();
-        this.props.handleSubmit(this.state.movies);
-      };
-
-      render () {
-return (
-    <div className="update-movie-form">
-<h2>Update Movie</h2>
-  <form onSubmit={this.handleSubmit}>
-  <input
-    type="text"
-    name="title"
-    placeholder="title"
-    onChange={this.handleChange}
-    value={this.state.movies.title}
-  />
-
-
-)
-</form>
-      </div>
-
+  handleChange = event => {
+    this.setState({
+      movies: {
+        ...this.state.movies,
+        [event.target.name]: event.target.value
       }
-    }
+    });
+  };
 
-    export default UpdateMovieForm;
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.handleSubmit(this.state.movies);
+  };
+
+  render() {
+    return (
+      <div className="update-movie-form">
+        <h2>Update Movie</h2>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            placeholder="title"
+            onChange={this.handleChange}
+            value={this.state.movies.title}
+          />
+          <input
+            type="text"
+            name="director"
+            placeholder="director"
+            onChange={this.handleChange}
+            value={this.state.movies.director}
+          />
+          <input
+            type="text"
+            name="metascore"
+            placeholder="metascore"
+            onChange={this.handleChange}
+            value={this.state.movies.metascore}
+          />
+          <input
+            type="text"
+            name="stars"
+            placeholder="stars"
+            onChange={this.handleChange}
+            value={this.state.movies.star}
+          />
+          <button className="update-button" type="submit">
+            Submit Update
+          </button>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default UpdateMovieForm;
