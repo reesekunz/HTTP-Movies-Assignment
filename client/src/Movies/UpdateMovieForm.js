@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 
 class UpdateMovieForm extends React.Component {
   constructor(props) {
@@ -22,9 +24,23 @@ class UpdateMovieForm extends React.Component {
     });
   };
 
+//   componentDidMount() {
+//   }
+
   handleSubmit = event => {
-    event.preventDefault();
-    this.props.handleSubmit(this.state.movies);
+  event.preventDefault();
+  axios
+        .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
+        .then(response => {
+        this.setState({
+          initialMovieState: response.data
+        });
+      })
+      .catch(error => {
+        this.setState({
+            initialMovieState: error.response
+        });
+      });
   };
 
   render() {
@@ -60,10 +76,7 @@ class UpdateMovieForm extends React.Component {
             onChange={this.handleChange}
             value={this.state.initialMovieState.star}
           />
-          {/* <button className="update-button" type="submit"> */}
-              <button>
-            Submit Update
-          </button>
+          <button className="update-button">Submit Update</button>
         </form>
       </div>
     );
