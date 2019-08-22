@@ -85,6 +85,12 @@ yarn start
 Built out form in UpdateMovieForm.js 
 
 #3. Add a button in the movie component that routes you to your new route with the movies's id as the URL param
+movie.js
+
+  <button className="update-button">
+  <Link to={`/update-movie/${this.state.movie.id}`}>Update Movie</Link>
+  </button>
+
 
 
 
