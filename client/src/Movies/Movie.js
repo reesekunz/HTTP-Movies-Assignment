@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 
-import { Link } from "react-router-dom";
+import { Route, NavLink} from "react-router-dom";
+import UpdateMovieForm from "./UpdateMovieForm";
 
 export default class Movie extends React.Component {
   constructor(props) {
@@ -45,9 +46,21 @@ export default class Movie extends React.Component {
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
-        <button className="update-button">
-          <Link to={`/update-movie/${this.state.movie.id}`}>Update Movie</Link>
-        </button>
+        {/* Update with movie id routing  */}
+        <Route
+          exact
+          path="/update-movie/:id"
+          render={props => <UpdateMovieForm {...props} movie={this.state.movie} />}
+        />
+        <NavLink exact to={`/update-movie/${this.state.movie.id}`}>
+          
+        </NavLink>
+        <button
+          onClick={() =>
+            this.props.history.push(`/update-movie${this.state.movie.id}`)
+          }
+          className="update-button"
+        />
       </div>
     );
   }

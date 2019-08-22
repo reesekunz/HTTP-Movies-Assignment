@@ -1,65 +1,82 @@
-import React from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-class UpdateMovieForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      initialMovie: {
-        title: "",
-        director: "",
-        metascore: "",
-        stars: [],
-      }
-    };
-  }
+const initialMovie = {
+    title: "",
+    director: "",
+    metascore: "",
+    stars: [],
+};
 
-  handleChange = event => {
-    this.setState({
-      initialMovie: {
-        ...this.state.movies,
-        [event.target.name]: event.target.value
-      }
-    });
-  };
+const UpdateMovieForm = props => {
+    const [updateMovie, setUpdateMovie] = useState(initialMovie);
+  
+    useEffect(() => {
+        setUpdateMovie(props.location.state)
+    }, [props.location.state])
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.handleSubmit(this.state.movies);
-  };
 
-  render() {
+    const handleChange = event => {
+        event.persist();
+        let value = event.target.value;
+        if (event.target.name === 'stars') {
+            value = value.split(',')
+        }
+
+        setUpdateMovie({
+            ...updateMovie,
+            [event.target.name]: value
+          });
+        };
+
+  
+        const handleSubmit = event => {
+            event.preventDefault();
+            axios
+            .put(`http://localhost:5000/api/movies${updateMovie.id}`, updateMovie)
+              .then(response => {
+                console.log(response);
+                setUpdateMovie(initialMovie);
+                props.updateMovies(response.data);
+                props.history.push('/');
+              })
+              .catch(error => console.log(error.response));
+          };
+        
+
+
     return (
       <div className="update-movie-form">
         <h2>Update Movie</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="title"
             placeholder="title"
-            onChange={this.handleChange}
-            value={this.state.movies.title}
+            onChange={handleChange}
+            value={updateMovie.title}
+
           />
           <input
             type="text"
             name="director"
             placeholder="director"
-            onChange={this.handleChange}
-            value={this.state.movies.director}
+            onChange={handleChange}
+            value={updateMovie.director}
           />
           <input
             type="text"
             name="metascore"
             placeholder="metascore"
-            onChange={this.handleChange}
-            value={this.state.movies.metascore}
+            onChange={handleChange}
+            value={updateMovie.metascore}
           />
           <input
             type="text"
             name="stars"
             placeholder="stars"
-            onChange={this.handleChange}
-            value={this.state.movies.star}
+            onChange={handleChange}
+            value={updateMovie.stars.toString()}
           />
           <button className="update-button" type="submit">
             Submit Update
@@ -68,6 +85,5 @@ class UpdateMovieForm extends React.Component {
       </div>
     );
   }
-}
 
 export default UpdateMovieForm;
